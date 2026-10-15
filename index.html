@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SpookyTV</title>
+    <meta name="description" content="Find Halloween episodes of your favorite TV shows with SpookyTV.">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="container">
+        <section class="search-section">
+            <h1 class="logo">Spooky<span>TV</span></h1>
+
+            <p class="tagline">
+                Find Halloween and spooky episodes of your favorite TV shows, Bitches!
+            </p>
+
+            <form id="search-form">
+                <label class="visually-hidden" for="show-search">
+                    TV show name
+                </label>
+
+                <div class="search-box">
+                    <span class="search-icon" aria-hidden="true">⌕</span>
+
+                    <input
+                        type="search"
+                        id="show-search"
+                        name="show"
+                        placeholder="Search any TV show..."
+                        autocomplete="off"
+                        required
+                    >
+                </div>
+
+                <button type="submit" id="search-button">
+                    BOOOOOO!
+                </button>
+            </form>
+        </section>
+
+        <section
+            id="results-section"
+            class="results-section"
+            aria-live="polite"
+        >
+            <p id="status-message"></p>
+            <div id="results-list"></div>
+        </section>
+    </main>
+</body>
+</html>
