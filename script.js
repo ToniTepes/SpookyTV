@@ -20,6 +20,7 @@ searchForm.addEventListener("submit", async (event) => {
     resultsList.replaceChildren();
     statusMessage.textContent = "Searching for your show...";
     searchButton.disabled = true;
+    searchButton.textContent = "I will find you...";
 
     try {
         const response = await fetch(
@@ -60,6 +61,7 @@ searchForm.addEventListener("submit", async (event) => {
         console.error(error);
     } finally {
         searchButton.disabled = false;
+        searchButton.textContent = "BOOOOOO!";
     }
 });
 
@@ -79,10 +81,17 @@ async function loadEpisodes(show) {
 
         const episodes = await response.json();
 
+        
         const halloweenEpisodes = episodes.filter(isHalloweenEpisode);
 
-        statusMessage.textContent =
-            `${show.name}: ${halloweenEpisodes.length} Halloween episodes found! FUCK YEAH!`;
+        if (halloweenEpisodes.length === 0) {
+            statusMessage.textContent =
+                `I couldn't find any Halloween episodes for ${show.name}. My detector may have missed some but I doubt it. Try another show or search for a different title. Also, make sure you know how to spell, Dummy!`;
+        } else {
+            statusMessage.textContent =
+                `${show.name}: ${halloweenEpisodes.length} Halloween episodes found, Bitch!`;
+        }
+
 
         halloweenEpisodes.forEach((episode) => {
             const card = document.createElement("article");
