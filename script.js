@@ -97,10 +97,21 @@ async function loadEpisodes(show) {
             const season = episode.season ?? "Special";
             const number = episode.number ?? "N/A";
 
-            meta.textContent =
-                `Season ${season} · Episode ${number}`;
+            const airdate = episode.airdate
+                ? ` · Aired ${episode.airdate}`
+                : "";
 
-            card.append(title, meta);
+            meta.textContent =
+                `Season ${season} · Episode ${number}${airdate}`;
+
+            const link = document.createElement("a");
+            link.className = "episode-link";
+            link.href = episode.url;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = "View episode on TVmaze ↗";
+
+            card.append(title, meta, link);
             resultsList.appendChild(card);
         });
     } catch (error) {
@@ -117,6 +128,10 @@ function isHalloweenEpisode(episode) {
 
     const clues = [
         "halloween",
+      //  "terror",
+        "haunted",
+        "horror",
+        "scary stories",
         "terror tales of the park",
         "trick or treat",
         "haunted house",
