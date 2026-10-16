@@ -79,10 +79,12 @@ async function loadEpisodes(show) {
 
         const episodes = await response.json();
 
-        statusMessage.textContent =
-            `${show.name}: ${episodes.length} episodes found.`;
+        const halloweenEpisodes = episodes.filter(isHalloweenEpisode);
 
-        episodes.forEach((episode) => {
+        statusMessage.textContent =
+            `${show.name}: ${halloweenEpisodes.length} Halloween episodes found! FUCK YEAH!`;
+
+        halloweenEpisodes.forEach((episode) => {
             const card = document.createElement("article");
             card.className = "episode-card";
 
@@ -107,3 +109,28 @@ async function loadEpisodes(show) {
         console.error(error);
     }
 }
+
+
+function isHalloweenEpisode(episode) {
+    const title = episode.name ?? "";
+    const summary = episode.summary ?? "";
+
+    const clues = [
+        "halloween",
+        "terror tales of the park",
+        "trick or treat",
+        "haunted house",
+        "costume party",
+        "jack-o-lantern",
+        "jack o lantern",
+        "all hallows",
+        "spooky"
+    ];
+
+    const episodeText = `${title} ${summary}`
+        .toLowerCase()
+        .replace(/<[^>]*>/g, " ");
+
+    return clues.some((clue) => episodeText.includes(clue));
+}
+
